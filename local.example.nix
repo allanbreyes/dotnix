@@ -1,0 +1,4 @@
+{
+  usersDirectory = "/home";
+  username = "allan";
+}
