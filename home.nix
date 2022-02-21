@@ -65,6 +65,13 @@ in {
         undo = "reset --soft HEAD^";
         unstage = "reset HEAD --";
       };
+      delta = {
+        enable = true;
+        options = {
+          line-numbers = true;
+          navigate = true;
+        };
+      };
       extraConfig = {
         apply.whitespace = "nowarn";
         color = {
