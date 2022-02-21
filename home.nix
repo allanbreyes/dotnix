@@ -9,8 +9,30 @@ in {
     };
     homeDirectory = "${local.usersDirectory}/${local.username}";
     packages = with pkgs; [
+      age
+      colordiff
+      curl
+      dnsutils
+      docker-compose
+      gcc
+      go
+      file
       htop
+      jetbrains.idea-ultimate
+      jq
       kubectl
+      logseq
+      nettools
+      python3
+      spotify
+      sops
+      terraform
+      tldr
+      tree
+      unzip
+      vagrant
+      vim
+      wget
     ];
     stateVersion = "21.05";
     username = "${local.username}";
