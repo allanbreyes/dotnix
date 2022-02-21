@@ -74,7 +74,7 @@ in {
         pull.ff = "only";
         push.default = "simple";
         url = {
-          "git@github.com" = { insteadOf = "gh:"; };
+          "git@github.com:" = { insteadOf = "gh:"; };
         };
       };
       ignores = [
