@@ -15,7 +15,6 @@ in {
       dnsutils
       docker-compose
       gcc
-      go
       file
       htop
       jetbrains.idea-ultimate
@@ -33,6 +32,10 @@ in {
       vagrant
       vim
       wget
+    ];
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/go/bin"
     ];
     stateVersion = "21.05";
     username = "${local.username}";
@@ -89,6 +92,10 @@ in {
       };
       userName = "${local.fullName}";
       userEmail = "${local.githubUsername}@users.noreply.github.com";
+    };
+    go = {
+      enable = true;
+      goPath = "go";
     };
     starship = {
       enable = true;
