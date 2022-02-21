@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 let
+  nixpkgs = import <nixpkgs> {};
   local = import ./local.nix;
+  inherit (nixpkgs) stdenv;
 in {
   home = {
     file = {
@@ -133,6 +135,10 @@ in {
       shellAliases = {
         ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.co";
         k = "kubectl";
+        o = if stdenv.isDarwin then "open" else "xdg-open";
+        rebuild = if stdenv.isDarwin
+          then "darwin-rebuild switch"
+          else "sudo nixos-rebuild switch --upgrade";
         switch = "home-manager switch && source ~/.zshrc";
       };
     };
