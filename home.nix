@@ -17,14 +17,17 @@ in {
       dnsutils
       docker-compose
       gcc
+      gping
       file
       htop
+      httpie
       jetbrains.idea-ultimate
       jq
       kubectl
       logseq
       nettools
       python3
+      ripgrep
       spotify
       sops
       terraform
@@ -46,6 +49,7 @@ in {
   programs = {
     home-manager.enable = true;
 
+    bat.enable = true;
     exa = {
       enable = true;
       enableAliases = true;
@@ -140,6 +144,7 @@ in {
         EDITOR = "vim";
       };
       shellAliases = {
+        cat = "bat";
         ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.co";
         k = "kubectl";
         o = if stdenv.isDarwin then "open" else "xdg-open";
