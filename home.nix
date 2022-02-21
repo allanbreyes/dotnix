@@ -5,7 +5,7 @@ let
 in {
   home = {
     file = {
-      "vimrc".source = ./files/.vimrc;
+      ".vimrc".source = ./files/.vimrc;
     };
     homeDirectory = "${local.usersDirectory}/${local.username}";
     packages = with pkgs; [
