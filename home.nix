@@ -1,15 +1,18 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   nixpkgs = import <nixpkgs> {};
-  local = import ./local.nix;
+  vars = if (builtins.pathExists ./vars.nix) then import ./vars.nix else {};
   inherit (nixpkgs) stdenv;
 in {
+  imports = [
+  ] ++ lib.optional (builtins.pathExists ./home.local.nix) ./home.local.nix;
+
   home = {
     file = {
       ".vimrc".source = ./files/.vimrc;
     };
-    homeDirectory = "${local.usersDirectory}/${local.username}";
+    homeDirectory = "${vars.usersDirectory}/${vars.username}";
     packages = with pkgs; [
       age
       colordiff
@@ -43,8 +46,10 @@ in {
       "$HOME/go/bin"
     ];
     stateVersion = "21.05";
-    username = "${local.username}";
+    username = "${vars.username}";
   };
+
+  nixpkgs.config = import ./config.nix;
 
   programs = {
     home-manager.enable = true;
@@ -100,11 +105,11 @@ in {
         ".DS_Store"
       ];
       signing = {
-        key = "${local.gpgSigningKey}";
+        key = "${vars.gpgSigningKey}";
         signByDefault = true;
       };
-      userName = "${local.fullName}";
-      userEmail = "${local.githubUsername}@users.noreply.github.com";
+      userName = "${vars.fullName}";
+      userEmail = "${vars.githubUsername}@users.noreply.github.com";
     };
     go = {
       enable = true;
@@ -148,12 +153,10 @@ in {
         ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.co";
         k = "kubectl";
         o = if stdenv.isDarwin then "open" else "xdg-open";
-        rebuild = if stdenv.isDarwin
-          then "darwin-rebuild switch"
+        switch = if stdenv.isDarwin
+          then "darwin-rebuild switch --upgrade"
           else "sudo nixos-rebuild switch --upgrade";
-        switch = "home-manager switch && source ~/.zshrc";
       };
     };
   };
 }
-
