@@ -15,13 +15,15 @@ in {
     homeDirectory = "${vars.usersDirectory}/${vars.username}";
     packages = with pkgs; [
       age
+      ansible
       colordiff
       curl
       dnsutils
       docker-compose
-      gcc
-      gping
       file
+      gcc
+      gnumake
+      gping
       htop
       httpie
       jetbrains.idea-ultimate
@@ -29,6 +31,7 @@ in {
       kubectl
       logseq
       nettools
+      packer
       python3
       ripgrep
       spotify
@@ -40,7 +43,24 @@ in {
       vagrant
       vim
       wget
-    ];
+      yamllint
+      zap
+    ] ++ (if stdenv.isDarwin then [
+      # macOS packages
+    ] else [
+      # Linux packages
+      evince
+      gimp
+      gqrx
+      libreoffice
+      moonlight-qt
+      simple-scan
+      thunderbird
+      ticker
+      transgui
+      xclip
+      zotero
+    ]);
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/go/bin"
