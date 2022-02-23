@@ -143,18 +143,7 @@ in {
       enable = true;
       baseIndex = 1;
       clock24 = true;
-      extraConfig = ''
-        # Preserve folder
-        bind '%' split-window -h -c '#{pane_current_path}'
-        bind '"' split-window -v -c '#{pane_current_path}'
-        bind c new-window -c '#{pane_current_path}'
-
-        # vi mode
-        set-window-option -g mode-keys vi
-
-        # Enable mouse
-        set -g mouse on
-      '';
+      extraConfig = builtins.readFile ./files/tmux.extra.conf;
       terminal = "screen-256color";
     };
     zsh = {
@@ -162,9 +151,7 @@ in {
       enableAutosuggestions = true;
       enableCompletion = true;
       history.extended = true;
-      initExtra = ''
-        bindkey -v
-      '';
+      initExtra = builtins.readFile ./files/init.zsh;
       sessionVariables = {
         EDITOR = "vim";
       };
