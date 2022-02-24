@@ -10,7 +10,7 @@ in {
 
   home = {
     file = {
-      ".vimrc".source = ./files/.vimrc;
+      ".vimrc".source = ./files/vimrc;
     };
     homeDirectory = "${vars.usersDirectory}/${vars.username}";
     packages = with pkgs; [
