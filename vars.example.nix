@@ -1,6 +1,6 @@
 {
   fullName = "Allan Reyes";
-  githubUsername = "allanbreyes";
+  gitEmail = "allanbreyes@users.noreply.github.com";
   gpgSigningKey = "3C5663F773417707";
   username = "allan";
   usersDirectory = "/home";

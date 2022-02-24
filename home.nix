@@ -14,6 +14,7 @@ in {
     };
     homeDirectory = "${vars.usersDirectory}/${vars.username}";
     packages = with pkgs; [
+      # Common packages
       age
       ansible
       colordiff
@@ -26,15 +27,10 @@ in {
       gping
       htop
       httpie
-      jetbrains.idea-ultimate
       jq
       kubectl
-      logseq
-      nettools
-      packer
       python3
       ripgrep
-      spotify
       sops
       terraform
       tldr
@@ -44,7 +40,6 @@ in {
       vim
       wget
       yamllint
-      zap
     ] ++ (if stdenv.isDarwin then [
       # macOS packages
     ] else [
@@ -52,13 +47,19 @@ in {
       evince
       gimp
       gqrx
+      jetbrains.idea-ultimate
       libreoffice
+      logseq
       moonlight-qt
+      nettools
+      packer
       simple-scan
+      spotify
       thunderbird
       ticker
       transgui
       xclip
+      zap
       zotero
     ]);
     sessionPath = [
@@ -66,7 +67,7 @@ in {
       "$HOME/go/bin"
     ];
     stateVersion = "21.05";
-    username = "${vars.username}";
+    username = vars.username;
   };
 
   nixpkgs.config = import ./config.nix;
@@ -125,11 +126,11 @@ in {
         ".DS_Store"
       ];
       signing = {
-        key = "${vars.gpgSigningKey}";
+        key = vars.gpgSigningKey;
         signByDefault = true;
       };
-      userName = "${vars.fullName}";
-      userEmail = "${vars.githubUsername}@users.noreply.github.com";
+      userName = vars.fullName;
+      userEmail = vars.gitEmail;
     };
     go = {
       enable = true;
@@ -157,11 +158,12 @@ in {
       };
       shellAliases = {
         cat = "bat";
+        clip = if stdenv.isDarwin then "pbcopy" else "xclip -selection clipboard";
         ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.co";
         k = "kubectl";
         o = if stdenv.isDarwin then "open" else "xdg-open";
         switch = if stdenv.isDarwin
-          then "darwin-rebuild switch --upgrade"
+          then "darwin-rebuild switch"
           else "sudo nixos-rebuild switch --upgrade";
       };
     };
