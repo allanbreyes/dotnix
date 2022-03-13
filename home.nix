@@ -29,6 +29,7 @@ in {
       httpie
       jq
       kubectl
+      nixops
       python3
       ripgrep
       sops
@@ -53,6 +54,7 @@ in {
       moonlight-qt
       nettools
       packer
+      signal-desktop
       simple-scan
       spotify
       thunderbird
@@ -159,6 +161,7 @@ in {
       shellAliases = {
         cat = "bat";
         clip = if stdenv.isDarwin then "pbcopy" else "xclip -selection clipboard";
+        gd = "cd \"$(git rev-parse --show-toplevel)\"";
         ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.co";
         k = "kubectl";
         o = if stdenv.isDarwin then "open" else "xdg-open";
