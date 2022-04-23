@@ -17,6 +17,7 @@ in {
       # Common packages
       age
       ansible
+      cargo
       colordiff
       curl
       dnsutils
@@ -32,6 +33,8 @@ in {
       nixops
       python3
       ripgrep
+      rustc
+      rustfmt
       sops
       terraform
       tldr
