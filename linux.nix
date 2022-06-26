@@ -25,6 +25,7 @@ in {
     systemPackages = with pkgs; [
       autofs5
       clamav
+      gnome.seahorse
       gnupg1
       libusb
       lightlocker
@@ -128,6 +129,7 @@ in {
   services = {
     compton.enable = true;
     fprintd.enable = true;
+    gnome.gnome-keyring.enable = true;
     gvfs = {
       enable = true;
       package = lib.mkForce pkgs.gnome3.gvfs;

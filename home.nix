@@ -31,6 +31,7 @@ in {
       jq
       kubectl
       nixops
+      nmap
       python3
       ripgrep
       rustc
@@ -46,12 +47,12 @@ in {
       yamllint
     ] ++ (if stdenv.isDarwin then [
       # macOS packages
+      pinentry_mac
     ] else [
       # Linux packages
       evince
       gimp
       gqrx
-      jetbrains.idea-ultimate
       libreoffice
       logseq
       moonlight-qt
@@ -63,6 +64,7 @@ in {
       thunderbird
       ticker
       transgui
+      vscode
       xclip
       zap
       zotero
@@ -81,6 +83,10 @@ in {
     home-manager.enable = true;
 
     bat.enable = true;
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     exa = {
       enable = true;
       enableAliases = true;
@@ -129,6 +135,7 @@ in {
         "*~"
         "#*"
         ".DS_Store"
+        ".envrc"
       ];
       signing = {
         key = vars.gpgSigningKey;
