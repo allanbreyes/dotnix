@@ -93,7 +93,7 @@ in {
   programs = {
     firejail = let
       bins = [
-        "firefox"
+        "chromium"
       ];
     in {
       enable = true;
@@ -117,7 +117,6 @@ in {
   security = {
     apparmor.enable = true;
     pam = {
-      services.login.fprintAuth = true;
       yubico = {
         control = "required";
         enable = true;
@@ -128,7 +127,6 @@ in {
 
   services = {
     compton.enable = true;
-    fprintd.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs = {
       enable = true;
@@ -152,6 +150,13 @@ in {
       user = vars.username;
       dataDir = "/home/${vars.username}/Sync";
       configDir = "/home/${vars.username}/.config/syncthing";
+    };
+    tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNER_ON_BAT = "powersave";
+        CPU_MAX_PERF_ON_BAT = 60;
+      };
     };
     udev = {
       packages = with pkgs; [
