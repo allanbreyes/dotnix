@@ -44,6 +44,7 @@ in {
       vagrant
       vim
       wget
+      wireguard-tools
       yamllint
     ] ++ (if stdenv.isDarwin then [
       # macOS packages
@@ -51,6 +52,7 @@ in {
     ] else [
       # Linux packages
       evince
+      firefox
       gimp
       gqrx
       libreoffice
@@ -58,6 +60,7 @@ in {
       moonlight-qt
       nettools
       packer
+      powertop
       signal-desktop
       simple-scan
       spotify
@@ -77,7 +80,14 @@ in {
     username = vars.username;
   };
 
-  nixpkgs.config = import ./config.nix;
+  nixpkgs = {
+    config = import ./config.nix;
+    overlays = [
+      (import (builtins.fetchTarball {
+               url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+               }))
+    ];
+  };
 
   programs = {
     home-manager.enable = true;
@@ -147,6 +157,13 @@ in {
     go = {
       enable = true;
       goPath = "go";
+    };
+    neovim = {
+      enable = true;
+      extraConfig = builtins.readFile ./files/vimrc;
+      vimAlias = true;
+      vimdiffAlias = true;
+      withNodeJs = true;
     };
     starship = {
       enable = true;
