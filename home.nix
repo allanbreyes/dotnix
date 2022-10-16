@@ -11,6 +11,7 @@ in {
   home = {
     file = {
       ".vimrc".source = ./files/vimrc;
+      ".local/bin/kv".source = ./files/scripts/kv.sh;
     };
     homeDirectory = "${vars.usersDirectory}/${vars.username}";
     packages = with pkgs; [
@@ -82,11 +83,7 @@ in {
 
   nixpkgs = {
     config = import ./config.nix;
-    overlays = [
-      (import (builtins.fetchTarball {
-               url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-               }))
-    ];
+    overlays = [];
   };
 
   programs = {

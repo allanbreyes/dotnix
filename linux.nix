@@ -35,6 +35,7 @@ in {
       openssl
       pavucontrol
       rtl-sdr
+      tailscale
       xfce.thunar-archive-plugin
       xfce.thunar-volman
       xfce.xfce4-power-manager
@@ -65,10 +66,12 @@ in {
         22000  # Syncthing
       ];
       allowedUDPPorts = [
+        config.services.tailscale.port
         21027  # Syncthing
         22000  # Syncthing
       ];
       enable = true;
+      trustedInterfaces = ["tailscale0"];
     };
     networkmanager.enable = true;
     useDHCP = false;
@@ -151,6 +154,7 @@ in {
       dataDir = "/home/${vars.username}/Sync";
       configDir = "/home/${vars.username}/.config/syncthing";
     };
+    tailscale.enable = true;
     tlp = {
       enable = true;
       settings = {
@@ -180,6 +184,27 @@ in {
   system.autoUpgrade = {
     allowReboot = false;
     enable = true;
+  };
+
+  systemd.services.tailscale-autoconnect = {
+    description = "Automatic connection to Tailscale";
+    after = [ "network-pre.target" "tailscale.service" ];
+    wants = [ "network-pre.target" "tailscale.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "oneshot";
+    script = with pkgs; ''
+      # Wait for tailscaled to settle
+      sleep 2
+
+      # Check if we are already authenticated to tailscale
+      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+      if [ $status = "Running" ]; then # if so, then do nothing
+        exit 0
+      fi
+
+      # Otherwise authenticate with tailscale
+      ${tailscale}/bin/tailscale up -authkey ${vars.tailscaleAuthKey}
+    '';
   };
 
   time.timeZone = "America/New_York";
