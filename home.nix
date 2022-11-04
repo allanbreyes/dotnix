@@ -18,40 +18,52 @@ in {
       # Common packages
       age
       ansible
+      aws-vault
+      awscli
       cargo
       colordiff
       curl
-      dnsutils
+      delve
+      docker
       docker-compose
       file
       gcc
+      gh
+      git
       gnumake
+      gnupg
       gping
       htop
       httpie
       jq
-      kubectl
       nixops
       nmap
       python3
+      rename
       ripgrep
       rustc
       rustfmt
       sops
+      swig
       terraform
+      terraform-ls
       tldr
       tree
       unzip
       vagrant
-      vim
+      virtualenv
+      watch
       wget
+      wireguard-go
       wireguard-tools
       yamllint
+      yarn
     ] ++ (if stdenv.isDarwin then [
       # macOS packages
       pinentry_mac
     ] else [
       # Linux packages
+      dnsutils
       evince
       firefox
       gimp
@@ -132,6 +144,7 @@ in {
         help.autocorrect = 1;
         init.defaultBranch = "main";
         pull.ff = "only";
+        push.autoSetupRemote = "true";
         push.default = "simple";
         url = {
           "git@github.com:" = { insteadOf = "gh:"; };
@@ -158,6 +171,8 @@ in {
     neovim = {
       enable = true;
       extraConfig = builtins.readFile ./files/vimrc;
+      plugins = with nixpkgs.vimPlugins; [
+      ];
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
@@ -177,7 +192,11 @@ in {
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      history.extended = true;
+      enableSyntaxHighlighting = true;
+      history = {
+        extended = true;
+        ignorePatterns = ["export *"];
+      };
       initExtra = builtins.readFile ./files/init.zsh;
       sessionVariables = {
         EDITOR = "vim";

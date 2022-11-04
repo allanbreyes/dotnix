@@ -7,3 +7,10 @@ zstyle ':completion:*' insert-tab pending
 
 # GPG
 export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
+# macOS
+if [[ `uname` == "Darwin" ]]; then
+  alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+fi
