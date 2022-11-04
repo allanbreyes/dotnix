@@ -13,7 +13,7 @@ in {
   ];
 
   fonts = with pkgs; {
-    enableFontDir = true;
+    fontDir.enable = true;
     fonts = [(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })];
   };
 
@@ -21,7 +21,12 @@ in {
     users.${vars.username} = import ./home.nix;
   };
 
-  nix.package = pkgs.nix;
+  nix = {
+    package = pkgs.nix;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   programs.zsh.enable = true;
 
