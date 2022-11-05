@@ -211,6 +211,7 @@ in {
         switch = if stdenv.isDarwin
           then "darwin-rebuild switch"
           else "sudo nixos-rebuild switch --upgrade";
+        uuid = "python -c 'import uuid; print(uuid.uuid4())'";
       };
     };
   };
