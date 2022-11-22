@@ -70,6 +70,7 @@ in {
         21027  # Syncthing
         22000  # Syncthing
       ];
+      checkReversePath = "loose";
       enable = true;
       trustedInterfaces = ["tailscale0"];
     };
@@ -186,6 +187,9 @@ in {
     enable = true;
   };
 
+  # HACK: https://github.com/NixOS/nixpkgs/issues/180175
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
     after = [ "network-pre.target" "tailscale.service" ];
@@ -203,7 +207,7 @@ in {
       fi
 
       # Otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey ${vars.tailscaleAuthKey}
+      ${tailscale}/bin/tailscale up --accept-routes=false --auth-key=${vars.tailscaleAuthKey}
     '';
   };
 
