@@ -2,6 +2,7 @@
 
 let
   nixpkgs = import <nixpkgs> {};
+  unstable = import <nixos-unstable> {};
   vars = if (builtins.pathExists ./vars.nix) then import ./vars.nix else {};
   inherit (nixpkgs) stdenv;
 in {
@@ -19,7 +20,7 @@ in {
       age
       ansible
       aws-vault
-      awscli
+      awscli2
       cargo
       colordiff
       curl
@@ -35,13 +36,18 @@ in {
       gping
       htop
       httpie
+      inetutils
       jq
-      nixops
+      magic-wormhole
+      mongosh
       nmap
+      pass
+      postgresql
+      pre-commit
       python3
+      redis
       rename
       ripgrep
-      rustc
       rustfmt
       sops
       swig
@@ -50,7 +56,6 @@ in {
       tldr
       tree
       unzip
-      vagrant
       virtualenv
       watch
       wget
@@ -63,27 +68,34 @@ in {
       pinentry_mac
     ] else [
       # Linux packages
+      calibre
       dnsutils
       evince
       firefox
       gimp
+      google-chrome
       gqrx
       libreoffice
       logseq
-      moonlight-qt
       nettools
       packer
       powertop
       signal-desktop
       simple-scan
+      slack
       spotify
       thunderbird
       ticker
       transgui
+      vagrant
       vscode
       xclip
       zap
       zotero
+
+      # Unstable packages
+      unstable.moonlight-qt
+      unstable.rustc
     ]);
     sessionPath = [
       "$HOME/.local/bin"
@@ -106,7 +118,7 @@ in {
       enable = true;
       enableZshIntegration = true;
     };
-    exa = {
+    eza = {
       enable = true;
       enableAliases = true;
     };
@@ -192,7 +204,7 @@ in {
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       history = {
         extended = true;
         ignorePatterns = ["export *"];
@@ -214,5 +226,8 @@ in {
         uuid = "python -c 'import uuid; print(uuid.uuid4())'";
       };
     };
+  };
+  services = {
+    opensnitch-ui.enable = stdenv.isLinux;
   };
 }
