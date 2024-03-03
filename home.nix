@@ -36,7 +36,6 @@ in {
       gping
       htop
       httpie
-      inetutils
       jq
       magic-wormhole
       mongosh
@@ -78,6 +77,7 @@ in {
       libreoffice
       logseq
       nettools
+      obsidian
       packer
       powertop
       signal-desktop
@@ -217,7 +217,7 @@ in {
         cat = "bat";
         clip = if stdenv.isDarwin then "pbcopy" else "xclip -selection clipboard";
         gd = "cd \"$(git rev-parse --show-toplevel)\"";
-        ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.co";
+        ips = "ifconfig | grep -E 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' && curl http://ifconfig.me";
         k = "kubectl";
         o = if stdenv.isDarwin then "open" else "xdg-open";
         switch = if stdenv.isDarwin

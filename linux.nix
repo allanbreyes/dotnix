@@ -28,7 +28,6 @@ in {
       gnome.seahorse
       gnupg1
       libusb
-      lightlocker
       mate.engrampa
       networkmanager
       openjdk
@@ -45,7 +44,7 @@ in {
     ];
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
   ];
 
@@ -80,7 +79,9 @@ in {
   };
 
   nix = {
-    allowedUsers = ["${vars.username}"];
+    settings = {
+      allowed-users = ["${vars.username}"];
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -117,16 +118,8 @@ in {
     steam.enable = true;
     zsh.enable = true;
   };
-
   security = {
     apparmor.enable = true;
-    pam = {
-      yubico = {
-        control = "required";
-        enable = true;
-        mode = "challenge-response";
-      };
-    };
   };
 
   services = {
@@ -136,6 +129,7 @@ in {
       enable = true;
       package = lib.mkForce pkgs.gnome3.gvfs;
     };
+    opensnitch.enable = true;
     openssh.enable = false;
     pcscd.enable = true;
     redshift = {
