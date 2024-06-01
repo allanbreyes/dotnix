@@ -67,7 +67,9 @@ in {
       pinentry_mac
     ] else [
       # Linux packages
+      beeper
       calibre
+      discord
       dnsutils
       evince
       firefox
@@ -120,7 +122,7 @@ in {
     };
     eza = {
       enable = true;
-      enableAliases = true;
+      enableZshIntegration = true;
     };
     fzf = {
       enable = true;

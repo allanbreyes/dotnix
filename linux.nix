@@ -90,7 +90,7 @@ in {
       dates = "daily";
       options = "--delete-older-than 30d";
     };
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
   };
 
   nixpkgs.config = import ./config.nix;
