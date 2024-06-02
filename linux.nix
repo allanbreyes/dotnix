@@ -124,11 +124,13 @@ in {
 
   services = {
     compton.enable = true;
+    displayManager.defaultSession = "xfce";
     gnome.gnome-keyring.enable = true;
     gvfs = {
       enable = true;
       package = lib.mkForce pkgs.gnome3.gvfs;
     };
+    libinput.enable = true;
     opensnitch.enable = true;
     openssh.enable = false;
     pcscd.enable = true;
@@ -169,8 +171,6 @@ in {
         xterm.enable = false;
         xfce.enable = true;
       };
-      displayManager.defaultSession = "xfce";
-      libinput.enable = true;
     };
   };
 

@@ -203,8 +203,8 @@ in {
       terminal = "screen-256color";
     };
     zsh = {
+      autosuggestion.enable = true;
       enable = true;
-      enableAutosuggestions = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       history = {
