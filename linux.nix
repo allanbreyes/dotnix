@@ -49,6 +49,7 @@ in {
   ];
 
   hardware = {
+    bluetooth.enable = true;
     pulseaudio.enable = true;
     rtl-sdr.enable = true;
   };
@@ -123,6 +124,7 @@ in {
   };
 
   services = {
+    blueman.enable = true;
     compton.enable = true;
     displayManager.defaultSession = "xfce";
     gnome.gnome-keyring.enable = true;
