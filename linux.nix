@@ -25,15 +25,15 @@ in {
     systemPackages = with pkgs; [
       autofs5
       clamav
-      gnome.seahorse
       gnupg1
-      libusb
+      libusb1
       mate.engrampa
       networkmanager
       openjdk
       openssl
       pavucontrol
       rtl-sdr
+      seahorse
       tailscale
       xfce.thunar-archive-plugin
       xfce.thunar-volman
@@ -50,7 +50,6 @@ in {
 
   hardware = {
     bluetooth.enable = true;
-    pulseaudio.enable = true;
     rtl-sdr.enable = true;
   };
 
@@ -130,7 +129,7 @@ in {
     gnome.gnome-keyring.enable = true;
     gvfs = {
       enable = true;
-      package = lib.mkForce pkgs.gnome3.gvfs;
+      package = lib.mkForce pkgs.gnome.gvfs;
     };
     libinput.enable = true;
     opensnitch.enable = true;
@@ -175,8 +174,6 @@ in {
       };
     };
   };
-
-  sound.enable = true;
 
   system.autoUpgrade = {
     allowReboot = false;

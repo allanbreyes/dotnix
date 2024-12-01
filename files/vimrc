@@ -154,6 +154,12 @@ set complete+=kspell
 " Always use vertical diffs
 set diffopt+=vertical
 
+" Make backgrounds transparent
+highlight Normal guibg=none
+highlight NonText guibg=none
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+
 " Local config
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local

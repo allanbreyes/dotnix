@@ -2,7 +2,6 @@
 
 let
   nixpkgs = import <nixpkgs> {};
-  unstable = import <nixos-unstable> {};
   vars = if (builtins.pathExists ./vars.nix) then import ./vars.nix else {};
   inherit (nixpkgs) stdenv;
 in {
@@ -24,7 +23,6 @@ in {
       cargo
       colordiff
       curl
-      delve
       docker
       docker-compose
       file
@@ -35,19 +33,15 @@ in {
       gnupg
       gping
       htop
-      httpie
       jq
       magic-wormhole
-      mongosh
       nmap
       pass
       postgresql
       pre-commit
       python3
-      redis
       rename
       ripgrep
-      rustfmt
       sops
       swig
       terraform
@@ -61,7 +55,6 @@ in {
       wireguard-go
       wireguard-tools
       yamllint
-      yarn
     ] ++ (if stdenv.isDarwin then [
       # macOS packages
       pinentry_mac
@@ -78,26 +71,26 @@ in {
       gqrx
       libreoffice
       logseq
+      moonlight-qt
       nettools
       obsidian
       packer
       powertop
+      prismlauncher
       signal-desktop
       simple-scan
       slack
       spotify
       thunderbird
-      ticker
       transgui
-      vagrant
       vscode
       xclip
       zap
       zotero
 
-      # Unstable packages
-      unstable.moonlight-qt
-      unstable.rustc
+      # Vagrant has a build issue in 24.11 with libvirt
+      # See: https://github.com/NixOS/nixpkgs/issues/348938
+      (vagrant.override {withLibvirt=false;})
     ]);
     sessionPath = [
       "$HOME/.local/bin"
