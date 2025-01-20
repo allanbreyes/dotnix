@@ -13,8 +13,10 @@ in {
   ];
 
   fonts = with pkgs; {
-    fontDir.enable = true;
-    fonts = [(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })];
+    packages = [
+      pkgs.nerd-fonts.fira-code
+      pkgs.nerd-fonts.droid-sans-mono
+    ];
   };
 
   home-manager = {
@@ -32,7 +34,7 @@ in {
 
   services.nix-daemon.enable = true;
 
-  system.stateVersion = 4;
+  system.stateVersion = 5;
 
   users.users.${vars.username} = {
     name = vars.username;
