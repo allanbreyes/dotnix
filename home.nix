@@ -66,6 +66,7 @@ in {
       dnsutils
       evince
       firefox
+      ghostty
       gimp
       google-chrome
       gqrx
@@ -109,6 +110,14 @@ in {
     home-manager.enable = true;
 
     bat.enable = true;
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        line-numbers = true;
+        navigate = true;
+      };
+    };
     direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -124,22 +133,15 @@ in {
     };
     git = {
       enable = true;
-      aliases = {
-        cm = "commit -m";
-        co = "checkout";
-        lg = "log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
-        st = "status";
-        undo = "reset --soft HEAD^";
-        unstage = "reset HEAD --";
-      };
-      delta = {
-        enable = true;
-        options = {
-          line-numbers = true;
-          navigate = true;
+      settings = {
+        aliases = {
+          cm = "commit -m";
+          co = "checkout";
+          lg = "log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
+          st = "status";
+          undo = "reset --soft HEAD^";
+          unstage = "reset HEAD --";
         };
-      };
-      extraConfig = {
         apply.whitespace = "nowarn";
         color = {
           diff = "auto";
@@ -156,6 +158,10 @@ in {
         url = {
           "git@github.com:" = { insteadOf = "gh:"; };
         };
+        user = {
+          name = vars.fullName;
+          email = vars.gitEmail;
+        };
       };
       ignores = [
         "*.swp"
@@ -168,12 +174,10 @@ in {
         key = vars.gpgSigningKey;
         signByDefault = true;
       };
-      userName = vars.fullName;
-      userEmail = vars.gitEmail;
     };
     go = {
       enable = true;
-      goPath = "go";
+      env.GOPATH = "go";
     };
     neovim = {
       enable = true;
@@ -204,7 +208,7 @@ in {
         extended = true;
         ignorePatterns = ["export *"];
       };
-      initExtra = builtins.readFile ./files/init.zsh;
+      initContent = builtins.readFile ./files/init.zsh;
       sessionVariables = {
         EDITOR = "vim";
       };

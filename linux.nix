@@ -26,6 +26,7 @@ in {
       autofs5
       clamav
       gnupg1
+      graphite-gtk-theme
       libusb1
       mate.engrampa
       networkmanager
@@ -45,7 +46,8 @@ in {
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
   ];
 
   hardware = {
