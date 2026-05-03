@@ -60,9 +60,10 @@ in {
       pinentry_mac
     ] else [
       # Linux packages
-      beeper
+      anki
       calibre
-      discord
+      chirp
+      claude-code
       dnsutils
       evince
       firefox
@@ -71,7 +72,6 @@ in {
       google-chrome
       gqrx
       libreoffice
-      logseq
       moonlight-qt
       nettools
       obsidian
@@ -87,6 +87,7 @@ in {
       vscode
       xclip
       zap
+      zed-editor
       zotero
 
       # Vagrant has a build issue in 24.11 with libvirt

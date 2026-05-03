@@ -12,7 +12,6 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   console = {
-    font = "Fira Code";
     keyMap = "us";
   };
 
