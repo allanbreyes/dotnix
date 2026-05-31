@@ -72,6 +72,7 @@ in {
       google-chrome
       gqrx
       libreoffice
+      lutris
       moonlight-qt
       nettools
       obsidian
@@ -188,6 +189,8 @@ in {
       vimAlias = true;
       vimdiffAlias = true;
       withNodeJs = true;
+      withPython3 = false;
+      withRuby = false;
     };
     starship = {
       enable = true;

@@ -23,11 +23,12 @@ in {
     '';
     systemPackages = with pkgs; [
       autofs5
+      brightnessctl
       clamav
+      engrampa
       gnupg1
       graphite-gtk-theme
       libusb1
-      mate.engrampa
       networkmanager
       openjdk
       openssl
@@ -35,12 +36,12 @@ in {
       rtl-sdr
       seahorse
       tailscale
-      xfce.thunar-archive-plugin
-      xfce.thunar-volman
-      xfce.xfce4-power-manager
-      xfce.xfce4-pulseaudio-plugin
-      xfce.xfce4-systemload-plugin
-      xfce.xfce4-weather-plugin
+      thunar-archive-plugin
+      thunar-volman
+      xfce4-power-manager
+      xfce4-pulseaudio-plugin
+      xfce4-systemload-plugin
+      xfce4-weather-plugin
     ];
   };
 
@@ -76,7 +77,6 @@ in {
     };
     networkmanager.enable = true;
     useDHCP = false;
-    wireless.enable = false;
   };
 
   nix = {
@@ -114,7 +114,6 @@ in {
       enable = true;
       enableSSHSupport = true;
     };
-    light.enable = true;
     ssh.startAgent = false;
     steam.enable = true;
     zsh.enable = true;
